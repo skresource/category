@@ -1,0 +1,213 @@
+{
+  "name": "myproject1",
+  "version": "0.0.0"
+  }
+  
+  /*
+  
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { ActivatedRoute, Router,Params } from '@angular/router';
+import { CategoryService } from '../_services/category.service';
+import { Categories } from '../_models/categories'
+
+@Component({
+  selector: 'category',
+  templateUrl: 'category.component.html',
+  //styleUrls: ['./app.component.css']
+})
+
+
+export class CategoryComponent {
+	subCategories: any = [];
+	isLoaded: boolean = false;
+	imageDetail: any;
+	constructor(
+		private route: ActivatedRoute, 
+		private router: Router,
+		private categoryService: CategoryService,
+	){ }
+	
+	ngOnInit() { 
+	
+		this.route.params.subscribe((params: Params) => {
+			let parentId = params['id'];			 
+			this.categoryService.getAllSubCategory(parentId)
+            .subscribe(
+                data => { 
+					this.subCategories = data; 
+                },
+                error => {                     
+					console.log(error)                     
+                }				 
+			) 
+		}); 
+		 
+	}	 
+	 
+	 
+	showContactDetails(id){ 
+		this.categoryService.getDetails(id) 
+		.subscribe(
+			data  => {
+				this.imageDetail = data;
+				alert(this.imageDetail.desc);
+			},
+			error  => {
+				console.log(error)
+			} 
+		)
+	}
+	
+}
+
+------HTML:
+
+<Br>&nbsp;
+<Br>&nbsp;
+<div class="container">
+<div><h4>Sample Sub Categories:</h4>
+	<!-- Three columns of text below the carousel -->
+	<div class="row">
+		<div class="col-lg-3" *ngFor="let subcat of subCategories">
+			<div>
+				<a [routerLink]="['/category/parent/'+subcat.id]">
+					<img src="./assets/images/catimages/{{subcat.image}}" alt="{{subcat.image}}" width="100">
+				</a>
+			</div>
+			<div class="cat-name"><a [routerLink]="['/image-details/'+subcat.id]"  >{{subcat.name}}</a></div>
+			<div class="cat-desc">
+			<a class="btn btn-info" href="javascript:void(0)" role="button" (click)="showContactDetails(subcat.id)"> Contact details</a>
+			</div> 
+			 
+		</div>  
+	</div> 
+
+</div>
+</div>
+
+---------------------------------------------------End
+
+
+Routing:--------------------------------------
+
+
+//https://www.concretepage.com/angular-2/angular-2-routing-and-navigation-example
+import { Routes, RouterModule } from '@angular/router';
+
+ 
+ 
+ 
+import { HomeComponent } from './home/home.component';
+import { CategoryComponent } from './category/category.component';
+import { CategorydetailsComponent } from './category/categorydetails.component';
+
+import { PageNotFoundComponent } from './notfound.component';
+ 
+
+const appRoutes: Routes = [
+    
+    
+	{ path: '', redirectTo: 'home', pathMatch: 'full'}, //default 	
+	 
+	{ path: 'home', component: HomeComponent },  
+	{ path: 'category/parent/:id', component: CategoryComponent },  
+	{ path: 'image-details/:id', component: CategorydetailsComponent },  
+	//{ path: '**', component: PageNotFoundComponent } 
+];
+
+export const routing = RouterModule.forRoot(appRoutes);
+
+
+-----------------------------end
+
+Home component ------------------------
+
+
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { ActivatedRoute, Router  } from '@angular/router';
+import { CategoryService } from '../_services/category.service';
+import { Categories } from '../_models/categories'
+
+@Component({
+  selector: 'home',
+  templateUrl: 'home.component.html',
+  //styleUrls: ['./app.component.css']
+})
+
+
+export class HomeComponent {
+	categories: Categories[] = [];
+	isLoaded: boolean = false;
+	constructor(
+		private route: ActivatedRoute, 
+		private router: Router,
+		private categoryService: CategoryService,
+	){ }
+	
+	ngOnInit() {
+		this.categoryService.getAllCategory()
+            .subscribe(
+                data => { 
+					this.categories = data; 
+                },
+                error => {                     
+					console.log(error)                     
+                },
+				() => {}
+			);
+	}
+	
+}
+
+
+end ----------------
+
+Service ----------------------------------
+
+
+import { Injectable } from '@angular/core';
+import { HttpClient,  HttpClientModule  } from '@angular/common/http';
+import { Http,	HttpModule ,  Response } from '@angular/http';
+
+import { Categories } from '../_models/categories';
+
+@Injectable()
+export class CategoryService {
+	
+	constructor(private http: HttpClient){}
+	
+	/*create(user: User) {
+		return this.http.post('http://localhost:3000/employees', user);
+	}*/
+	
+	getAllCategory() {
+        return this.http.get<Categories[]>('http://localhost:3000/categories/?parent=0');
+    }
+	
+	getAllSubCategory(id: number) {		
+        return this.http.get('http://localhost:3000/categories/?parent=' + id);
+    }
+	
+	getDetails(id: number) {		
+        return this.http.get('http://localhost:3000/categories/' + id);
+    }
+	
+	addCartRequest(requestArray){		
+		return this.http.post('http://localhost:3000/posts/',requestArray)
+	}
+	
+	/*delete(id: number) {
+        return this.http.delete('http://localhost:3000/employees/' + id);
+    }
+	
+
+	
+	
+	updateUser(id: number, user: User) {		
+        return this.http.put('http://localhost:3000/employees/' + id, user);
+    }*/
+}
+
+--------------------End
+
+  */
